@@ -6,20 +6,31 @@ using UnityEngine;
 
 public class TimeManager : MonoBehaviour
 {
+    [Header("Time settings:")]
     [SerializeField] 
-    private float timeMultiplier;
+    private float timeMultiplier = 100f;
     
     [SerializeField] 
-    private float startHour;
+    private float sunriseHour;
 
     [SerializeField] 
-    private TextMeshProUGUI clock;
+    private float sunsetHour;
 
     [SerializeField] 
-    private Light sunLight;
+    private float startHour = 8f;
+
+    [Header("Light settings")]
+    [SerializeField]
+    private float sunAngle = 20f;
+
+    [SerializeField]
+    private float moonAngle = -30f;
+    
+    [SerializeField] 
+    private float maxSunLightIntensity;
 
     [SerializeField] 
-    private Light moonLight;
+    private float maxMoonLightIntensity;
 
     [SerializeField] 
     private Color dayAmbientLight;
@@ -31,16 +42,13 @@ public class TimeManager : MonoBehaviour
     private AnimationCurve lightChangeCurve;
 
     [SerializeField] 
-    private float maxSunLightIntensity;
+    private TextMeshProUGUI clock;
 
     [SerializeField] 
-    private float maxMoonLightIntensity;
+    private Light sunLight;
 
     [SerializeField] 
-    private float sunriseHour;
-
-    [SerializeField] 
-    private float sunsetHour;
+    private Light moonLight;
 
     [SerializeField] 
     private TimeSpan sunriseTime;
@@ -80,15 +88,15 @@ public class TimeManager : MonoBehaviour
         float sunLightRotation;
         float moonLightRotation;
 
-        if(currentTime.TimeOfDay > sunriseTime && currentTime.TimeOfDay < sunsetTime) 
+        if (currentTime.TimeOfDay > sunriseTime && currentTime.TimeOfDay < sunsetTime)
         {
             TimeSpan sunriseToSunsetDuration = CalculateTimeDifference(sunriseTime, sunsetTime);
             TimeSpan timeSinceSunrise = CalculateTimeDifference(sunriseTime, currentTime.TimeOfDay);
 
             double percentage = timeSinceSunrise.TotalMinutes / sunriseToSunsetDuration.TotalMinutes;
 
-            sunLightRotation = Mathf.Lerp(0,180,(float)percentage);
-            moonLightRotation = Mathf.Lerp(180,360,(float)percentage);
+            sunLightRotation = Mathf.Lerp(0, 180, (float)percentage);
+            moonLightRotation = Mathf.Lerp(180, 360, (float)percentage);
         }
         else
         {
@@ -97,13 +105,14 @@ public class TimeManager : MonoBehaviour
 
             double percentage = timeSinceSunset.TotalMinutes / sunsetToSunriseDuration.TotalMinutes;
 
-            sunLightRotation = Mathf.Lerp(180,360,(float)percentage);
-            moonLightRotation = Mathf.Lerp(0,180,(float)percentage);
+            sunLightRotation = Mathf.Lerp(180, 360, (float)percentage);
+            moonLightRotation = Mathf.Lerp(0, 180, (float)percentage);
         }
 
-        sunLight.transform.rotation = Quaternion.AngleAxis(sunLightRotation, Vector3.right);
-        moonLight.transform.rotation = Quaternion.AngleAxis(moonLightRotation, Vector3.right);
+        sunLight.transform.rotation = Quaternion.AngleAxis(sunLightRotation, Vector3.right) * Quaternion.AngleAxis(sunAngle, Vector3.up);
+        moonLight.transform.rotation = Quaternion.AngleAxis(moonLightRotation, Vector3.right) * Quaternion.AngleAxis(moonAngle, Vector3.up);
     }
+
 
     private void UpdateLightSettings()
     {
@@ -123,5 +132,5 @@ public class TimeManager : MonoBehaviour
         }
 
         return difference;
-    } 
+    }
 }
