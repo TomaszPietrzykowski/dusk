@@ -12,11 +12,13 @@ public class PlayerInteract : MonoBehaviour
     private LayerMask mask;
 
     private PlayerUI playerUI;
+    private ResourceManager rm;
 
     // Start is called before the first frame update
     void Start()
     {
         playerUI = GetComponent<PlayerUI>();
+        rm = FindObjectOfType<ResourceManager>();
     }
 
     // Update is called once per frame
@@ -33,6 +35,15 @@ public class PlayerInteract : MonoBehaviour
             {
                 Interactable interactable = hitInfo.collider.GetComponent<Interactable>();
                 playerUI.UpdateText(interactable.promptMessage);
+
+                if(Input.GetKey(KeyCode.E))
+                {
+                    if(interactable.promptMessage == "gold")
+                    {
+                        rm.AddGold(2f);
+                        interactable.Remove();
+                    }
+                }
             }
         }
     }

@@ -14,16 +14,9 @@ public abstract class Interactable : MonoBehaviour
     }
 
     protected virtual void Interact(){}
-
-    // Start is called before the first frame update
-    void Start()
+    
+    public void Remove()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        gameObject.SetActive(false);
     }
 }
