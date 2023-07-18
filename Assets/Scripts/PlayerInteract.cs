@@ -36,11 +36,17 @@ public class PlayerInteract : MonoBehaviour
                 Interactable interactable = hitInfo.collider.GetComponent<Interactable>();
                 playerUI.UpdateText(interactable.promptMessage);
 
-                if(Input.GetKey(KeyCode.E))
+                if(Input.GetMouseButtonDown(0))
                 {
-                    if(interactable.promptMessage == "gold")
+                    if(interactable.promptMessage == "stick")
                     {
-                        rm.AddGold(2f);
+                        rm.AddWood(1);
+                        interactable.Remove();
+                    }
+
+                    if(interactable.promptMessage == "log")
+                    {
+                        rm.AddWood(6);
                         interactable.Remove();
                     }
                 }

@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GoldenBall : Interactable
+public class StickCollectible : Interactable
 {
     [SerializeField]
-    private float value = 2f;
-    public float GetValue()
+    private int value = 1;
+    public int GetValue()
     {
         return value;
     }

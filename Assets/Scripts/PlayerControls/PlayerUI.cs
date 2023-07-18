@@ -8,7 +8,7 @@ public class PlayerUI : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI promptText;
     [SerializeField]
-    private TextMeshProUGUI goldText;
+    private TextMeshProUGUI woodText;
     
     void Start()
     {
@@ -16,9 +16,9 @@ public class PlayerUI : MonoBehaviour
     }
 
     // Update is called once per frame
-    public void UpdateGold(float gold)
+    public void UpdateWood(int wood)
     {
-        goldText.text = gold.ToString("");
+        woodText.text = wood.ToString("");
     }
     // Update is called once per frame
     public void UpdateText(string promptMessage)

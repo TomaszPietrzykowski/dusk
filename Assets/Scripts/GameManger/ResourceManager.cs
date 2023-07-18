@@ -6,7 +6,7 @@ public class ResourceManager : MonoBehaviour
 {
     
     [SerializeField]
-    private float gold = 0f;
+    private int wood = 0;
 
     private PlayerUI playerUI;
     void Start()
@@ -14,14 +14,14 @@ public class ResourceManager : MonoBehaviour
         playerUI = FindObjectOfType<PlayerUI>();
     }
 
-    public void AddGold(float amount)
+    public void AddWood(int amount)
     {
-        gold += amount;
-        playerUI.UpdateGold(gold);
+        wood += amount;
+        playerUI.UpdateWood(wood);
     }
 
-    public float GetGold()
+    public int GetWood()
     {
-        return gold;
+        return wood;
     }
 }
