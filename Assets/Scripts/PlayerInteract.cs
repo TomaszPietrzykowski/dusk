@@ -13,12 +13,14 @@ public class PlayerInteract : MonoBehaviour
 
     private PlayerUI playerUI;
     private ResourceManager rm;
+    private TimeManager tm;
 
     // Start is called before the first frame update
     void Start()
     {
         playerUI = GetComponent<PlayerUI>();
         rm = FindObjectOfType<ResourceManager>();
+        tm = FindObjectOfType<TimeManager>();
     }
 
     // Update is called once per frame
@@ -48,6 +50,10 @@ public class PlayerInteract : MonoBehaviour
                     {
                         rm.AddWood(6);
                         interactable.Remove();
+                    }
+                    if(interactable.promptMessage == "[sleep]")
+                    {   
+                        tm.AdvanceTime(7200);
                     }
                 }
             }

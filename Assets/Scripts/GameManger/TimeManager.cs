@@ -73,6 +73,11 @@ public class TimeManager : MonoBehaviour
         UpdateLightSettings();
     }
 
+    public void AdvanceTime(int seconds) 
+    {
+        currentTime = currentTime.AddSeconds(seconds);
+    }
+
     private void UpdateTimeOfDay()
     {
         currentTime = currentTime.AddSeconds(Time.deltaTime * timeMultiplier);
